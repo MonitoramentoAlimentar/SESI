@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="global.css">
+    <link rel="icon" href="img/pessoas.png">
+
+    <title>Monitoramento Alimentar | Instrutor</title>
+
+    <style>
+        h1 {
+            margin-top: 100px;
+        }
+
+        .buttons-week {
+
+            display: flex;
+            justify-content: center;
+
+        }
+
+        button {
+            background-color: rgba(240, 255, 255, 0.596);
+            color: rgb(0, 184, 173);
+
+            border: none;
+
+            width: 100px;
+            height: 50px;
+
+            font-family: "Instrument Sans", sans-serif;
+            font-weight: bold;
+
+            transition: 0.5s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+
+            cursor: pointer;
+
+            border-radius: 5px;
+        }
+
+
+        @media(max-width: 1200px) {
+            button {
+                width: 60px;
+
+            }
+        }
+
+        .first-button {
+            border-radius: 5px 0px 0px 5px;
+        }
+
+        .last-button {
+            border-radius: 0px 5px 5px 0px;
+        }
+
+        input {
+            height: 7vh;
+            width: 300px;
+
+            padding-left: 15px;
+
+            background-color: azure;
+
+            font-size: 2vh;
+            font-family: "Instrument Sans", sans-serif;
+
+            border: 1px solid grey;
+            outline: 1px solid rgb(172, 172, 172);
+            outline-offset: -8px;
+            border-radius: 5px;
+        }
+
+        @media(max-height: 750px) {
+            input {
+                height: 8vh;
+                font-size: 18px;
+            }
+        }
+
+        .voltar-img {
+            width: 40px;
+
+            border: solid 2px white;
+            border-radius: 5px;
+
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .confirmar {
+            height: 5vh;
+            width: 200px;
+
+            background-color: azure;
+            color: rgb(0, 184, 173);
+
+            font-size: 20px;
+
+            border: none;
+            border-radius: 5px;
+
+            margin: auto;
+
+            transition: 1s;
+
+        }
+
+
+        .confirmar:hover {
+            transform: scale(1.1);
+
+            cursor: pointer;
+        }
+
+        .perfil {
+            margin-left: 20px;
+        }
+
+        .info {
+            margin-top: -20px;
+        }
+
+        .confirmacao1 {
+            position: absolute;
+            z-index: 5;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+
+            background-color: azure;
+            color: black;
+
+            border-radius: 5px;
+            border: 6px double rgb(188, 188, 188);
+
+            font-size: 20px;
+
+            padding: 10px;
+
+            width: 400px;
+            height: 600px;
+        }
+
+        .confirmacao1>label {
+            font-weight: bold;
+        }
+
+        .confirmacao1>p {
+            border: 2px solid rgb(188, 188, 188);
+            border-radius: 5px;
+
+            width: 250px;
+            height: 50px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .botao {
+            display: flex;
+            gap: 30px;
+        }
+
+        .botao>button {
+            width: 150px;
+            border: 2px solid rgb(188, 188, 188);
+        }
+
+        .botao>button:hover {
+            transform: scale(1.1);
+
+            cursor: pointer;
+        }
+
+        .ativo {
+            background-color: azure;
+        }
+
+        .divDia {
+            display: none;
+        }
+
+        button>.diaDaSemana {
+            background-color: rgba(240, 255, 255, 0.459);
+        }
+
+        @media(min-height: 1000px) {
+            .diaDaSemana {
+                height: 70px;
+                width: 100px;
+
+                font-size: 18px;
+            }
+
+            .perfil>p {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <picture>
+            <a href="instrutor-form.html"><img class="voltar-img" src="./img/voltar-button.png.png"></a>
+        </picture>
+        <div class="principal">
+            <picture>
+                <img class="sesi-logo" src="./img/sesi-logo.png">
+            </picture>
+
+            <h1>Inserir o alimento da semana</h1>
+
+
+            <div id="post">
+                <div class="buttons-week">
+                    <button class="diaDaSemana" onclick="mudarBotao(0)" id="seg">SEG</button>
+                    <button class="diaDaSemana" onclick="mudarBotao(1)" id="ter">TER</button>
+                    <button class="diaDaSemana" onclick="mudarBotao(2)" id="qua">QUA</button>
+                    <button class="diaDaSemana" onclick="mudarBotao(3)" id="qui">QUI</button>
+                    <button class="diaDaSemana" onclick="mudarBotao(4)" id="sex">SEX</button>
+                </div>
+                <div class="alimentos">
+                    <label>Carboidrato</label><br>
+                    <input type="text" required id="carbo" autocomplete="off"><br><br>
+
+                    <label>Adicional</label><br>
+                    <input type="text" id="adicional" autocomplete="off"><br><br>
+
+                    <label>Bebida</label><br>
+                    <input type="text" required id="bebida" autocomplete="off"><br><br>
+
+                    <label>Sobremesa</label><br>
+                    <input type="text" required id="sobremesa" autocomplete="off"><br><br>
+
+                    <button class="confirmar" onclick="confirmarAlimento()"><span id="text">confirmar</span><img src="img/load-icon.png" id="load" class="load" alt=""></button>
+                </div>
+            </div>
+            <form class="confirmacao1" id="confirmacao1">
+                <h2 style="color: black;">Deseja confirmar estes itens?</h2>
+
+                <label>dia</label>
+                <p style="color: black;" id="cSemana"></p>
+                <label>carboidrato</label>
+                <p style="color: black;" id="cCarboidrato"></p>
+                <label>bebida</label>
+                <p style="color: black;" id="cBebida"></p>
+                <label>sobremesa</label>
+                <p style="color: black;" id="cSobremesa"></p>
+                <label>adicional</label>
+                <p style="color: black;" id="cAdicional"></p>
+
+                <div class="botao">
+                    <button class="editar" onclick="editar()" type="button">Editar</button>
+                    <button class="confirmar" type="submit" id="postButton" onclick="confirmar1()"><span id="text2">confirmar</span><img src="img/load-icon.png" id="load2" class="load" alt=""></button>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="perfil">
+            <p>PERFIL LOGADO</p><br>
+            <div class="info">
+                <p id="nome1"></p>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        //PERFIL
+
+        nome = null
+
+        nome = localStorage.getItem("usuario")
+
+        localStorage.removeItem("completo")
+        localStorage.removeItem("serie")
+        localStorage.removeItem("periodo")
+
+        document.getElementById('nome1').innerHTML = nome
+
+        //BOTÕES DA SEMANA
+
+        const diaDaSemana = document.getElementsByClassName("diaDaSemana")
+        const divDiaInformações = document.getElementsByClassName("divDia")
+
+        function mudarBotao(id) {
+            for (var i = 0; i < diaDaSemana.length; i++) {
+                if (i == id) {
+                    diaDaSemana[i].classList.add("ativo")
+                    continue
+                }
+                diaDaSemana[i].classList.remove("ativo")
+            }
+            for (var i = 0; i < divDiaInformações.length; i++) {
+                divDiaInformações[i].style.display = "none"
+                if (i == id) {
+                    divDiaInformações[i].style.display = "block"
+                }
+            }
+
+        }
+
+        //ALIMENTOS
+        function confirmarAlimento() {
+            document.getElementById('load').style.display = 'flex'
+            document.getElementById('text').style.display = 'none'
+
+            setTimeout(() => {
+                document.getElementById('load').style.display = 'none'
+                document.getElementById('text').style.display = 'flex'
+            }, 5000);
+            fetch('https://script.google.com/macros/s/AKfycbzaWGz7uTLaFqAONosZOMJi0VamAzzgTbm9L7rtbJuURVxhQ8zaMIoEZLVleZ1YJoWlPA/exec')
+                .then(resposta => {
+                    if (!resposta.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return resposta.json();
+                })
+                .then(corpo => {
+                    let alimentoEncontrado = false;
+                    for (i = 0; i < diaDaSemana.length; i++) {
+
+                        if (diaDaSemana[i].classList.contains("ativo")) {
+                            sessionStorage.setItem('semana', diaDaSemana[i].innerHTML)
+                        }
+                    }
+
+                    //Procurando e colocando o carboidrato e o adicional
+                    const inputCarboidrato = document.getElementById('carbo').value;
+
+                    if (inputCarboidrato == null || inputCarboidrato.trim() === "") {
+                        alert("nenhum carboidrato adicionado");
+                    } else {
+                        let found = false;
+                        for (let i = 0; i < corpo.carboidratos.length; i++) {
+                            if (inputCarboidrato == corpo.carboidratos[i].codigo) {
+                                sessionStorage.setItem('carboidrato', corpo.carboidratos[i].Nome);
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            sessionStorage.setItem('carboidrato', inputCarboidrato);
+                        }
+                    }
+
+                    const inputAdicional = document.getElementById('adicional').value;
+                    let foundAdicional = false; // Renomeado para evitar conflito
+                    for (let i = 0; i < corpo.carboidratos.length; i++) {
+                        if (inputAdicional == corpo.carboidratos[i].codigo) {
+                            sessionStorage.setItem('adicional', corpo.carboidratos[i].Nome);
+                            foundAdicional = true;
+                            break;
+                        }
+                    }
+                    if (!foundAdicional) {
+                        sessionStorage.setItem('adicional', inputAdicional);
+                    }
+
+                    //Procurando e colocando a bebida
+                    const inputBebida = document.getElementById('bebida').value;
+
+                    if (inputBebida == null || inputBebida.trim() === "") {
+                        alert("Nenhuma bebida adicionada");
+                    } else {
+                        let found = false;
+
+                        for (let i = 0; i < corpo.bebidas.length; i++) {
+
+                            if (inputBebida == corpo.bebidas[i].codigo) {
+                                sessionStorage.setItem('bebida', corpo.bebidas[i].Nome)
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            sessionStorage.setItem('bebida', inputBebida)
+                        }
+                    }
+
+                    //Procurando e colocando a sobremesa
+                    const inputSobremesa = document.getElementById('sobremesa').value;
+
+                    if (inputSobremesa == null || inputSobremesa.trim() === "") {
+                        alert("Nenhuma sobremesa adicionada");
+                    } else {
+                        let found = false;
+
+                        for (let i = 0; i < corpo.sobremesa.length; i++) {
+                            if (inputSobremesa == corpo.sobremesa[i].codigo) {
+                                sessionStorage.setItem('sobremesa', corpo.sobremesa[i].Nome)
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            sessionStorage.setItem('sobremesa', inputSobremesa)
+                        }
+                    }
+
+                })
+                .catch(error => {
+                    console.error('Houve um problema com a requisição Fetch:', error);
+                });
+
+            //tela de confirmacao
+            setTimeout(function () {
+                document.getElementById('confirmacao1').style.display = "flex";
+
+                document.getElementById('cSemana').innerHTML = sessionStorage.getItem('semana')
+                document.getElementById('cCarboidrato').innerHTML = sessionStorage.getItem('carboidrato')
+                document.getElementById('cBebida').innerHTML = sessionStorage.getItem('bebida')
+                document.getElementById('cSobremesa').innerHTML = sessionStorage.getItem('sobremesa')
+                document.getElementById('cAdicional').innerHTML = sessionStorage.getItem('adicional')
+            }, 5000);
+
+
+        }
+        function editar() {
+            document.getElementById('confirmacao1').style.display = "none";
+        }
+
+        function confirmar1(){
+            document.getElementById('load2').style.display = 'flex'
+            document.getElementById('text2').style.display = 'none'
+
+            setTimeout(() => {
+                document.getElementById('load2').style.display = 'none'
+                document.getElementById('text2').style.display = 'flex'
+            }, 4000);
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwivR0f3qW9fVVGwQPOzs9tusXXBCAM2Oj6ECHW6eJPJj1TXYyLZG8h4ob2XPcIwwA7Aw/exec';
+
+            document.getElementById('confirmacao1').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                let carbo = sessionStorage.getItem('carboidrato');
+                let bebida = sessionStorage.getItem('bebida');
+                let sobremesa = sessionStorage.getItem('sobremesa');
+                let ad = sessionStorage.getItem('adicional');
+                let semana = sessionStorage.getItem('semana');
+
+                const form = e.target;
+                const data = {
+                    carbo: carbo,
+                    bebida: bebida,
+                    sobremesa: sobremesa,
+                    ad: ad,
+                    semana: semana,
+                };
+                try {
+                    const response = await fetch(scriptURL, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('dados enviados com sucesso');
+                        form.reset();
+                    } else {
+                        alert('dados enviados com sucesso');
+                        document.getElementById('confirmacao1').style.display = "none";
+                    }
+                } catch (err) {
+                    console.log('erro ao conectar com o servidor');
+                    console.error(err);
+                }
+            });
+        }
+        
+
+
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</body>
+
+</html>

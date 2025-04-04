@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="global.css">
+    <link rel="icon" href="img/pessoas.png">
+
+    <title>Monitoramento Alimentar | OED</title>
+
+    <style>
+        .buttons{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            gap: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <main>
+        <picture>
+            <a href="index.html"><img class="voltar-img" src="./img/voltar-button.png.png"></a>
+        </picture>
+        <div class="principal">
+            <picture>
+                <img class="sesi-logo" src="./img/sesi-logo.png">
+            </picture>
+
+            <h1>O que deseja fazer?</h1>
+
+            <div class="buttons">
+                <button class="first-button"><a href="https://docs.google.com/spreadsheets/d/14peZLYsn-5T4HcZRU5qyJjnSAKqVuIBywVuyFgVI41o/edit?gid=1614047744#gid=1614047744" style="color:rgb(0, 136, 127); text-decoration: none; "> Alunos</a></button>
+                <button class="last-button"><a href="https://docs.google.com/spreadsheets/d/14peZLYsn-5T4HcZRU5qyJjnSAKqVuIBywVuyFgVI41o/edit?gid=1096536746#gid=1096536746" style="color:rgb(0, 136, 127); text-decoration: none;"> Alimentos</a></button>
+            </div>
+        </div>
+
+        <div class="perfil">
+            <p>PERFIL LOGADO</p><br>
+            <div class="info">
+                <p id="nome1"></p>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        //PERFIL
+
+        nome = null
+
+        nome = localStorage.getItem("usuario")
+
+        document.getElementById('nome1').innerHTML = nome
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</body>
+
+</html>

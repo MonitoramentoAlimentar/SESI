@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="global.css">
+    <link rel="icon" href="img/pessoas.png">
+
+    <title>Monitoramento Alimentar</title>
+</head>
+
+<body>
+    <main>
+        <picture>
+            <a href="index.html"><img class="voltar-img" src="./img/voltar-button.png.png"></a>
+        </picture>
+        <picture>
+            <img class="sesi-logo" src="./img/sesi-logo.png">
+        </picture>
+        <picture>
+            <img class="people" src="./img/pessoas.png">
+        </picture>
+
+        <h1>Monitoramento Alimentar</h1>
+
+        <form action="">
+            <input type="text" id="login" placeholder="Login" required autocomplete="off"><br><br>
+
+            <input type="password" id="senha" placeholder="senha" required autocomplete="off"><br><br>
+        </form>
+        <strong id="text-error" class="text-error"></strong>
+
+        <button onclick="loginInstrutor()" class="botao-login"><span id="text">Entrar</span><img src="img/load-icon.png" id="load" class="load" alt=""></button>
+
+    </main>
+
+    <script>
+        
+        function loginInstrutor(){
+            document.getElementById('load').style.display = 'flex'
+            document.getElementById('text').style.display = 'none'
+
+            setTimeout(() => {
+                document.getElementById('load').style.display = 'none'
+                document.getElementById('text').style.display = 'flex'
+            }, 4000);
+            fetch('https://script.google.com/macros/s/AKfycbx2dRIdsbhL3my8_UnAD2VZA3Q1eP4di3O_8WeVxd5rxLsqWDNodiR8h2QDu4y52vWDNw/exec')
+                .then(resposta => {
+                    if (!resposta.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return resposta.json();
+                })
+                .then(corpo => {
+                    let instrutorEncontrado = false;
+                    for (let i = 0; i < corpo.instrutor.length; i++) {
+                        if (document.getElementById('login').value == corpo.instrutor[i].Usuario && document.getElementById('senha').value == corpo.instrutor[i].Senha) {
+                            if(corpo.instrutor[i].Nivel == "OED"){
+                                let usuario = corpo.instrutor[i].Nome
+
+                                localStorage.setItem("usuario", usuario)
+                                
+                                window.location.href = 'OED-page-1.html'
+                            }else if(corpo.instrutor[i].Nivel == "Nutricionista"){
+                                let usuario = corpo.instrutor[i].Nome
+
+                                localStorage.setItem("usuario", usuario)
+
+                                window.location.href = 'instrutor-page-1.html'
+                            }
+                            instrutorEncontrado = true;
+                            break;
+                        }
+                    }
+                    if (!instrutorEncontrado) {
+                        setTimeout(() => {
+                            document.getElementById('text-error').innerHTML = "";  
+                        }, 4000);
+                        document.getElementById('text-error').innerHTML = "valores incorretos";
+                    }
+                })
+                .catch(error => {
+                    console.error('Houve um problema com a requisição Fetch:', error);
+                });
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</body>
+
+</html>

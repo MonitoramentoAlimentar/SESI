@@ -1,0 +1,159 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgb(0, 136, 127);
+
+    padding: 5px;
+
+    font-family: "Instrument Sans", sans-serif;
+
+    color: azure;
+
+    overflow-y: hidden;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    min-height: 99vh;
+    min-width: none;
+
+    background-color: rgb(0, 184, 173);
+
+    border-radius: 30px;
+}
+.sesi-logo{
+    position: absolute;
+    top: 50px;
+    
+    transform: translate(-50%);
+
+    width: 150px;
+}
+.voltar-img{
+    width: 50px;
+
+    border: solid 2px white;
+    border-radius: 5px;
+
+    position: absolute;
+    top: 25px;
+    left: 25px;
+}
+.people{
+    width: 200px;
+}
+h1{
+    color: azure;
+
+    font-size: 4vh;
+
+    font-family: "Instrument Sans", sans-serif;
+}
+input:not(.check){
+    height: 59px;
+    width: 300px;
+
+    padding-left: 15px;
+
+    background-color: azure;
+
+    font-size: 22px;
+    font-family: "Instrument Sans", sans-serif;
+
+    border: 1px solid grey;
+    outline: 1px solid rgb(172, 172, 172);
+    outline-offset: -6px;
+    border-radius: 5px;
+}
+@keyframes load{
+    to{transform: rotate(360deg);}
+    from{transform: rotate(0deg);}
+}
+.load{
+    display: none;
+
+    animation-name: load;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+.text-error{
+    color: red;
+
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 18px;
+}
+button:not(.plus, .minus, .instrutor, .diaDaSemana){
+    height: 59px;
+    width: 200px;
+
+    background-color: azure;
+    color:rgb(0, 184, 173);
+
+    font-size: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 5px;
+
+    transition: 0.5s;
+}
+button:active:not(.plus, .minus, .instrutor, .diaDaSemana){
+    scale: 0.9;
+}
+button:hover:not(.plus, .minus, .instrutor, .diaDaSemana){
+    background-color: rgb(218, 232, 232);
+}
+@media(max-width: 460px){
+    .sesi-logo{
+        position: absolute;
+        
+        transform: translate(-50%);
+    
+        width: 150px;
+    }
+    button:not(.plus, .minus, .instrutor, .diaDaSemana){
+        height: 6vh;
+        width: 100px;
+    
+        background-color: azure;
+        color:rgb(0, 184, 173);
+    
+        font-size: 20px;
+    
+        border: none;
+        border-radius: 5px;
+    
+        transition: 0.5s;
+    }
+    .perfil{
+        font-size: 12px;
+    }
+
+}
+.perfil{
+
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    margin-left: 20px;
+    
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+.info{
+    display: flex;
+
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento Alimentar | Dieta</title>
+
+    <link rel="stylesheet" href="global.css">
+    <link rel="icon" href="img/pessoas.png">
+
+    <style>
+        .checkDiv {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            width: 200px;
+            height: 50px;
+
+            margin-bottom: 100px;
+
+            border: none;
+            border-radius: 5px;
+
+            background-color: azure;
+            color: black;
+        }
+
+        .check {
+            height: 35px;
+            width: 35px;
+
+            padding-left: 15px;
+
+            background-color: azure;
+
+        }
+        .text-error{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <picture>
+            <a href="index.html"><img class="voltar-img" src="./img/voltar-button.png.png"></a>
+        </picture>
+        <picture>
+            <img class="sesi-logo" src="./img/sesi-logo.png">
+        </picture>
+        <form id="postDieta">
+            <div class="checkDiv">
+                <p>Confirmar</p>
+                <input type="checkbox" class="check" id="check">
+            </div>
+            
+            <button id="pDieta" type="submit" onclick="enviarDados()"><span id="text">Enviar</span><img
+                    src="img/load-icon.png" id="load" class="load" alt=""></button>
+        </form>
+        <strong id="text-error" class="text-error"></strong>
+        <div class="perfil">
+            <p>PERFIL LOGADO</p><br>
+            <div class="info">
+                <p id="nome"> </p>
+                <p>- </p>
+                <p id="periodo"> </p>
+                <p id="ano"></p>
+            </div>
+
+        </div>
+    </main>
+    <script>
+        //TEMPORIZADOR
+
+        setTimeout(() => {
+            window.location.href = "index.html"
+        }, 20000);
+        //PERFIL
+        nome = null
+        turma = null
+        periodo = null
+        dieta = null
+
+        nome = localStorage.getItem("nome")
+        turma = localStorage.getItem("turma")
+        periodo = localStorage.getItem("periodo")
+        dieta = localStorage.getItem("dieta")
+
+        document.getElementById('nome').innerHTML = nome + " "
+        document.getElementById('periodo').innerHTML = " " + periodo + " "
+        document.getElementById('ano').innerHTML = turma
+
+        console.log(document.getElementById('check').value)
+
+        //code
+        var scriptURL2 = 'https://script.google.com/macros/s/AKfycbwUpZqBl5JMewV_ooMRcS9h7XpfvtvfJ3clPt3zSg2SBnysSh3wuJKrWzOO2kP-EHO-IQ/exec';
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxyvXcAhJmMcOH1xpGgDmstsGmL6gGGESM5WnjroDBC8_IaEUbklaVUd7S4rg4vV5i6pA/exec';
+        document.getElementById('postDieta').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (document.getElementById('check').checked) {
+
+                dieta = localStorage.getItem("dieta")
+                nome = localStorage.getItem("nome")
+                const data = {
+                    nome: nome,
+                    dieta: dieta
+                };
+                try {
+                    const response = await fetch(scriptURL, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        window.location.href = "aluno-page-2.html"
+                        form.reset();
+                    } else {
+                        window.location.href = "aluno-page-2.html"
+                    }
+                } catch (err) {
+                    console.log('erro ao conectar com o servidor');
+                }
+            } else {
+                
+                document.getElementById('text-error').innerHTML = "Por favor confirme sua presença"
+            }
+
+        });
+
+        function enviarDados() {
+
+            if (document.getElementById('check').checked) {
+                document.getElementById('load').style.display = 'flex'
+                document.getElementById('text').style.display = 'none'
+
+                setTimeout(() => {
+                    document.getElementById('load').style.display = 'none'
+                    document.getElementById('text').style.display = 'flex'
+                }, 4000);
+
+                let nome = localStorage.getItem('nome')
+
+                const data = {
+                    nome: nome
+                };
+
+                fetch(scriptURL2, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            alert('info enviada')
+                        } else {
+                            alert('info enviada')
+                        }
+                    })
+                    .catch(err => {
+                        console.log('erro ao conectar com o servidor');
+                        console.error(err);
+                    });
+            }else{
+                document.getElementById('text-error').innerHTML = "Por favor, confirme sua presença"
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>

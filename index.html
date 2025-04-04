@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Monitoramento Alimentar</title>
+
+    <link rel="stylesheet" href="global.css">
+    <link rel="icon" href="img/pessoas.png">
+
+    <style>
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+
+        }
+
+        .instrutor-div {
+            width: 90%;
+            text-align: end;
+            position: absolute;
+            bottom: 20px;
+        }
+
+        .instrutor {
+            background-color: transparent;
+            color: azure;
+            opacity: 0.8;
+
+            font-size: 20px;
+
+            border: none;
+            border-radius: 5px;
+
+            transition: 0.5s;
+        }
+
+        .instrutor:hover {
+            background-color: transparent;
+            color: azure;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <picture>
+            <img class="sesi-logo" src="./img/sesi-logo.png">
+        </picture>
+        <picture>
+            <img class="people" src="./img/pessoas.png">
+        </picture>
+
+        <h1>Monitoramento Alimentar</h1>
+
+        <form id="form-login" action="">
+            <input type="number" id="senha" placeholder="Login" required autocomplete="off" maxlength="4"><br><br>
+        </form>
+        <strong id="text-error" class="text-error"></strong>
+
+        <button onclick="loginAluno()" class="botao-login"><span id="text">Entrar</span><img src="img/load-icon.png"
+                class="load" id="load"></button>
+
+        <div class="instrutor-div">
+            <button class="instrutor" id="instrutor"><a href="instrutor-form.html" class="instrutor"> Sou
+                    instrutor</a></button>
+        </div>
+    </main>
+
+    <script>
+        fetch('https://script.google.com/macros/s/AKfycbyPDU5x7JjYv5cgkuYcHsHLHxRxrMl_PVsr3kkEkTQ4qMCrgHS6fllSNNjrKp7znI2CXQ/exec')
+            .then(resposta => {
+                if (!resposta.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return resposta.json();
+            })
+            .then(corpo => {
+                sessionStorage.setItem('carboidratoA', corpo.carboidrato[0].nome);
+                sessionStorage.setItem('bebidaA', corpo.bebida[0].nome);
+                sessionStorage.setItem('sobremesaA', corpo.sobremesa[0].nome);
+                sessionStorage.setItem('adicionalA', corpo.adicional[0].nome);
+
+            })
+            .catch(error => {
+                console.error('Houve um problema com a requisição Fetch:', error);
+            });
+
+
+        function loginAluno() {
+            document.getElementById('load').style.display = 'flex'
+            document.getElementById('text').style.display = 'none'
+
+            setTimeout(() => {
+                document.getElementById('load').style.display = 'none'
+                document.getElementById('text').style.display = 'flex'
+            }, 4000);
+
+            fetch('https://script.google.com/macros/s/AKfycbxuB7MT1oWbsof5U-GzT4LaFvRPTcNllyUlbW82162rYi5iww9RgvrLSHfpV0Et1S6qwA/exec')
+                .then(resposta => {
+                    if (!resposta.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return resposta.json();
+                })
+                .then(corpo => {
+                    let alunoEncontrado = false;
+                    for (let i = 0; i < corpo.alunos.length; i++) {
+                        if (document.getElementById('senha').value == corpo.alunos[i].RM) {
+                            nome = corpo.alunos[i].Nome
+                            turma = corpo.alunos[i].Sala
+                            periodo = corpo.alunos[i].Periodo
+                            dieta = corpo.alunos[i].Dieta
+                            registro = corpo.alunos[i].Registro
+
+                            localStorage.setItem("nome", nome)
+                            localStorage.setItem("turma", turma)
+                            localStorage.setItem("periodo", periodo)
+                            localStorage.setItem("dieta", dieta)
+                            localStorage.setItem("registro", registro)
+
+                            if (dieta != 'NÃO') {
+                                if (registro == 'NÃO') {
+                                    window.location.href = 'aluno-page-dieta.html'
+                                    alunoEncontrado = true;
+                                    break;
+                                } else {
+                                    setTimeout(() => {
+                                        document.getElementById('text-error').innerHTML = "";
+                                        document.getElementById('senha').value = ""
+
+                                    }, 4000);
+                                    document.getElementById('text-error').innerHTML = "Seu registro já foi realizado";
+
+                                    alunoEncontrado = true;
+                                }
+
+                            }
+
+                            if (registro == 'NÃO') {
+                                window.location.href = 'aluno-page-1.html'
+                                alunoEncontrado = true;
+                                break;
+                            } else {
+                                setTimeout(() => {
+                                    document.getElementById('text-error').innerHTML = "";
+                                    document.getElementById('senha').value = ""
+
+                                }, 4000);
+                                document.getElementById('text-error').innerHTML = "Seu registro já foi realizado";
+
+                                alunoEncontrado = true;
+                            }
+
+                        }
+                    }
+                    if (!alunoEncontrado) {
+                        setTimeout(() => {
+                            document.getElementById('text-error').innerHTML = "";
+
+                        }, 4000);
+                        document.getElementById('text-error').innerHTML = "RM incorreto";
+                    }
+                })
+                .catch(error => {
+                    console.error('Houve um problema com a requisição Fetch:', error);
+                });
+
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</body>
+
+</html>

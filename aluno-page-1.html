@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Monitoramento Alimentar | Validação</title>
+
+    <link rel="stylesheet" href="global.css">
+    <link rel="icon" href="img/pessoas.png">
+    <style>
+        .bebida-img,
+        .carbo-img,
+        .fruta-img,
+        .ad-img {
+            width: 80px;
+        }
+
+        .validacao {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background-color: azure;
+            color: rgb(0, 184, 173);
+            margin: 10px;
+
+            height: 50px;
+
+            border: none;
+            border-radius: 5px;
+            padding: 0 10px;
+
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #double {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bebi,
+        .carboi,
+        #ad,
+        .sobre {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bebi p,
+        .carboi p,
+        #ad p,
+        .sobre p {
+            width: 150px;
+        }
+
+        .plus,
+        .minus {
+            height: 100%;
+            width: 70px;
+
+            padding: 0;
+
+            margin: 0;
+
+            background-color: azure;
+            color: rgb(0, 184, 173);
+
+            font-size: 20px;
+
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        @media (max-width: 460px) {
+
+            .bebida-img,
+            .carbo-img,
+            .fruta-img,
+            .ad-img {
+                width: 50px;
+            }
+        }
+
+        @media (max-height: 800px) {
+
+            .bebida-img,
+            .carbo-img,
+            .fruta-img,
+            .ad-img {
+                width: 40px;
+            }
+
+            .validacao {
+                height: 30px;
+            }
+
+            h1 {
+                margin-top: 100px;
+            }
+        }
+
+        #enviar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: azure;
+            color: rgb(0, 184, 173);
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px auto;
+        }
+
+        #load {
+            width: 20px;
+            height: 20px;
+
+            margin-left: 5px;
+            display: none;
+
+        }
+
+        .load {
+            animation-name: load;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes load {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .perfil {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .info p {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <picture>
+            <a href="index.html"><img class="voltar-img" src="./img/voltar-button.png.png"></a>
+        </picture>
+        <div class="principal">
+            <picture>
+                <img class="sesi-logo" src="./img/sesi-logo.png">
+            </picture>
+
+
+            <h1>Selecione o que deseja comer</h1>
+
+
+            <form id="valida">
+                <div id="double">
+                    <div class="bebi">
+                        <img class="bebida-img" src="img/copo.png" alt="Bebida">
+                        <p id="nameB">Bebida</p>
+
+                        <div class="validacao">
+                            <button class="minus" onclick="minusB()" type="button">-</button>
+                            <p id="valorB">0</p>
+                            <button class="plus" onclick="plusB()" type="button">+</button>
+                        </div>
+                    </div>
+
+
+
+                    <div class="carboi">
+                        <img class="carbo-img" src="img/carbo.png" alt="Carboidrato">
+                        <p id="nameC">Carboidrato</p>
+
+                        <div class="validacao">
+                            <button class="minus" onclick="minusC()" type="button">-</button>
+                            <p id="valorC">0</p>
+                            <button class="plus" onclick="plusC()" type="button">+</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="double">
+                    <div class="sobre">
+                        <img class="fruta-img" src="img/fruta.png" alt="Sobremesa">
+                        <p id="nameS">Sobremesa</p>
+
+                        <div class="validacao">
+                            <button class="minus" onclick="minusF()" type="button">-</button>
+                            <p id="valorF">0</p>
+                            <button class="plus" onclick="plusF()" type="button">+</button>
+                        </div>
+                    </div>
+
+                    <div id="ad" style="display: none;">
+                        <img class="ad-img" src="img/ad.png" alt="">
+                        <p id="nameA">Adicional</p>
+
+                        <div class="validacao">
+                            <button class="minus" onclick="minusA()" type="button">-</button>
+                            <p id="valorA">0</p>
+                            <button class="plus" onclick="plusA()" type="button">+</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <button id="enviar" onclick="post()"><span id="text">Enviar</span><img src="img/load-icon.png" id="load"
+                        class="load" alt=""> </button>
+            </form>
+
+
+            <div class="perfil">
+                <p>PERFIL LOGADO</p><br>
+                <div class="info">
+                    <p id="nome"> </p>
+                    <p>- </p>
+                    <p id="periodo"> </p>
+                    <p id="ano"></p>
+                </div>
+
+            </div>
+    </main>
+
+    <script>
+        //TEMPORIZADOR
+
+        setTimeout(() => {
+            window.location.href = "index.html"
+        }, 40000);
+        //PERFIL
+        nome = null
+        turma = null
+        periodo = null
+        dieta = null
+
+        nome = localStorage.getItem("nome")
+        turma = localStorage.getItem("turma")
+        periodo = localStorage.getItem("periodo")
+        dieta = localStorage.getItem("dieta")
+
+        document.getElementById('nome').innerHTML = nome
+        document.getElementById('periodo').innerHTML = periodo
+        document.getElementById('ano').innerHTML = turma
+        //ADICIONAL
+        ad = sessionStorage.getItem('adicionalA')
+        if (ad != "") {
+            document.getElementById('ad').style.display = 'flex'
+        }
+        //NOMES
+        document.getElementById('nameA').innerHTML = sessionStorage.getItem('adicionalA')
+        document.getElementById('nameB').innerHTML = sessionStorage.getItem('bebidaA')
+        document.getElementById('nameS').innerHTML = sessionStorage.getItem('sobremesaA')
+        document.getElementById('nameC').innerHTML = sessionStorage.getItem('carboidratoA')
+        //VALIDAÇÃO
+
+        valorB = 0;
+        valorC = 0;
+        valorF = 0;
+        valorA = 0;
+
+        function minusB() {
+            valorB--
+            if (valorB < 0) {
+                valorB = 1
+            }
+            document.getElementById("valorB").innerHTML = valorB
+        }
+        function plusB() {
+            valorB++
+            if (valorB > 1) {
+                valorB = 0;
+            }
+            document.getElementById("valorB").innerHTML = valorB
+        }
+        function minusA() {
+            valorA--
+            if (valorA < 0) {
+                valorA = 1
+            }
+            document.getElementById("valorA").innerHTML = valorA
+        }
+        function plusA() {
+            valorA++
+            if (valorA > 1) {
+                valorA = 0;
+            }
+            document.getElementById("valorA").innerHTML = valorA
+        }
+        function minusC() {
+            valorC--
+            if (valorC < 0) {
+                valorC = 2
+            }
+            document.getElementById("valorC").innerHTML = valorC
+        }
+        function plusC() {
+            valorC++
+            if (valorC > 2) {
+                valorC = 0;
+            }
+            document.getElementById("valorC").innerHTML = valorC
+        }
+        function minusF() {
+            valorF--
+            if (valorF < 0) {
+                valorF = 1
+            }
+            document.getElementById("valorF").innerHTML = valorF
+        }
+        function plusF() {
+            valorF++
+            if (valorF > 1) {
+                valorF = 0;
+            }
+            document.getElementById("valorF").innerHTML = valorF
+        }
+        function post() {
+            document.getElementById('load').style.display = 'flex'
+            document.getElementById('text').style.display = 'none'
+
+            setTimeout(() => {
+                document.getElementById('load').style.display = 'none'
+                document.getElementById('text').style.display = 'flex'
+            }, 4000);
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzH2Anjr8bYdJWVdG7uzgDsothtWI_lWNm5_HknOUceP_9TGZ2z-H5AHrW3N3rbfU2fQg/exec';
+
+            document.getElementById('valida').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                let carboidrato = parseInt(sessionStorage.getItem('carboidrato')) + parseInt(document.getElementById('valorC').innerHTML)
+                let bebida = parseInt(sessionStorage.getItem('bebida')) + parseInt(document.getElementById('valorB').innerHTML)
+                let sobremesa = parseInt(sessionStorage.getItem('sobremesa')) + parseInt(document.getElementById('valorF').innerHTML)
+                let adicional = parseInt(sessionStorage.getItem('adicional')) + parseInt(document.getElementById('valorA').innerHTML)
+
+
+                const form = e.target;
+                const data = {
+                    carboidrato: carboidrato,
+                    bebida: bebida,
+                    sobremesa: sobremesa,
+                    adicional: adicional,
+                };
+                try {
+                    const response = await fetch(scriptURL, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        window.location.href = "aluno-page-2.html"
+                        form.reset();
+                    } else {
+                        window.location.href = "aluno-page-2.html"
+                    }
+                } catch (err) {
+                    console.log('erro ao conectar com o servidor');
+                    console.error(err);
+                }
+            });
+            const scriptURL2 = 'https://script.google.com/macros/s/AKfycbwUpZqBl5JMewV_ooMRcS9h7XpfvtvfJ3clPt3zSg2SBnysSh3wuJKrWzOO2kP-EHO-IQ/exec';
+            let nome = localStorage.getItem('nome')
+
+            const data = {
+                nome: nome
+            };
+
+            fetch(scriptURL2, {
+                method: 'POST',
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        alert('info enviada')
+                    } else {
+                        alert('info enviada')
+                    }
+                })
+                .catch(err => {
+                    console.log('erro ao conectar com o servidor');
+                    console.error(err);
+                });
+        }
+
+        fetch('https://script.google.com/macros/s/AKfycbytH8CPSxnOB4mqJSiNcMfmWuLuzB7wHxVc9Mz_LlgYp8arcsO0TuRRdFjSUMZ-7lIK7g/exec')
+            .then(resposta => {
+                if (!resposta.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return resposta.json();
+            })
+            .then(corpo => {
+
+                for (let i = 0; i < corpo.carboidrato.length; i++) {
+                    sessionStorage.setItem('carboidrato', corpo.carboidrato[i].quantidade)
+                }
+                for (let i = 0; i < corpo.bebida.length; i++) {
+                    sessionStorage.setItem('bebida', corpo.bebida[i].quantidade)
+                }
+                for (let i = 0; i < corpo.sobremesa.length; i++) {
+                    sessionStorage.setItem('sobremesa', corpo.sobremesa[i].quantidade)
+                }
+                for (let i = 0; i < corpo.adicional.length; i++) {
+                    sessionStorage.setItem('adicional', corpo.adicional[i].quantidade)
+                }
+
+            })
+            .catch(error => {
+                console.error('Houve um problema com a requisição Fetch:', error);
+            });
+
+
+        fetch('https://script.google.com/macros/s/AKfycbyPDU5x7JjYv5cgkuYcHsHLHxRxrMl_PVsr3kkEkTQ4qMCrgHS6fllSNNjrKp7znI2CXQ/exec')
+            .then(resposta => {
+                if (!resposta.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return resposta.json();
+            })
+            .then(corpo => {
+
+                for (let i = 0; i < corpo.carboidrato.length; i++) {
+                    sessionStorage.setItem('carboidratoA', corpo.carboidrato[i].nome)
+                }
+                for (let i = 0; i < corpo.bebida.length; i++) {
+                    sessionStorage.setItem('bebidaA', corpo.bebida[i].nome)
+                }
+                for (let i = 0; i < corpo.sobremesa.length; i++) {
+                    sessionStorage.setItem('sobremesaA', corpo.sobremesa[i].nome)
+                }
+                for (let i = 0; i < corpo.adicional.length; i++) {
+                    sessionStorage.setItem('adicionalA', corpo.adicional[i].nome)
+                }
+
+            })
+            .catch(error => {
+                console.error('Houve um problema com a requisição Fetch:', error);
+            });
+
+
+
+
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+</body>
+
+</html>
