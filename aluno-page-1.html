@@ -321,13 +321,13 @@
         function minusC() {
             valorC--
             if (valorC < 0) {
-                valorC = 2
+                valorC = sessionStorage.getItem('qntCarbo')
             }
             document.getElementById("valorC").innerHTML = valorC
         }
         function plusC() {
             valorC++
-            if (valorC > 2) {
+            if (valorC > sessionStorage.getItem('qntCarbo')) {
                 valorC = 0;
             }
             document.getElementById("valorC").innerHTML = valorC
