@@ -76,25 +76,57 @@
     </main>
 
     <script>
-        fetch('https://script.google.com/macros/s/AKfycbyPDU5x7JjYv5cgkuYcHsHLHxRxrMl_PVsr3kkEkTQ4qMCrgHS6fllSNNjrKp7znI2CXQ/exec')
-            .then(resposta => {
-                if (!resposta.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return resposta.json();
-            })
-            .then(corpo => {
-                sessionStorage.setItem('carboidratoA', corpo.carboidrato[0].nome);
-                sessionStorage.setItem('bebidaA', corpo.bebida[0].nome);
-                sessionStorage.setItem('sobremesaA', corpo.sobremesa[0].nome);
-                sessionStorage.setItem('adicionalA', corpo.adicional[0].nome);
+        fetch('https://script.google.com/macros/s/AKfycbzVJR9lfjUKUjomohiLhwkoASpKtJslmK-eTUq9cb3oLd6-MeE0yZAJxOpeAbfzPQj6vw/exec')
+        .then(resposta => {
+            if (!resposta.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return resposta.json();
+        })
+        .then(corpo => {
+            var data = new Date();
+            var dia = data.getDay();
 
-            })
-            .catch(error => {
-                console.error('Houve um problema com a requisição Fetch:', error);
-            });
+            if (dia == 1) {
+                sessionStorage.setItem('carboidratoA', corpo.segunda['carboidrato']);
+                sessionStorage.setItem('bebidaA', corpo.segunda['bebida']);
+                sessionStorage.setItem('sobremesaA', corpo.segunda['sobremesa']);
+                sessionStorage.setItem('adicionalA', corpo.segunda['adicional']);
+                sessionStorage.setItem('qntCarbo', corpo.segunda['qntCarbo'])
+            }
+            if (dia == 2) {
+                sessionStorage.setItem('carboidratoA', corpo.terca['carboidrato']);
+                sessionStorage.setItem('bebidaA', corpo.terca['bebida']);
+                sessionStorage.setItem('sobremesaA', corpo.terca['sobremesa']);
+                sessionStorage.setItem('adicionalA', corpo.terca['adicional']);
+                sessionStorage.setItem('qntCarbo', corpo.terca['qntCarbo'])
+            }
+            if (dia == 3) {
+                sessionStorage.setItem('carboidratoA', corpo.quarta['carboidrato']);
+                sessionStorage.setItem('bebidaA', corpo.quarta['bebida']);
+                sessionStorage.setItem('sobremesaA', corpo.quarta['sobremesa']);
+                sessionStorage.setItem('adicionalA', corpo.quarta['adicional']);
+                sessionStorage.setItem('qntCarbo', corpo.quarta['qntCarbo'])
+            }
+            if (dia == 4) {
+                sessionStorage.setItem('carboidratoA', corpo.quinta['carboidrato']);
+                sessionStorage.setItem('bebidaA', corpo.quinta['bebida']);
+                sessionStorage.setItem('sobremesaA', corpo.quinta['sobremesa']);
+                sessionStorage.setItem('adicionalA', corpo.quinta['adicional']);
+                sessionStorage.setItem('qntCarbo', corpo.quinta['qntCarbo'])
+            }
+            if (dia == 5) {
+                sessionStorage.setItem('carboidratoA', corpo.sexta['carboidrato']);
+                sessionStorage.setItem('bebidaA', corpo.sexta['bebida']);
+                sessionStorage.setItem('sobremesaA', corpo.sexta['sobremesa']);
+                sessionStorage.setItem('adicionalA', corpo.sexta['adicional']);
+                sessionStorage.setItem('qntCarbo', corpo.sexta['qntCarbo'])
+            }
 
-
+        })
+        .catch(error => {
+            console.error('Houve um problema com a requisição Fetch:', error);
+        });
         function loginAluno() {
             document.getElementById('load').style.display = 'flex'
             document.getElementById('text').style.display = 'none'
