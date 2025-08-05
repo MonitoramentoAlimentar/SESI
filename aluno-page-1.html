@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="global.css">
     <link rel="icon" href="img/pessoas.png">
     <style>
+        .principal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .bebida-img,
         .carbo-img,
         .fruta-img,
@@ -35,6 +41,7 @@
         }
 
         h1 {
+
             margin-bottom: 20px;
         }
 
@@ -52,15 +59,17 @@
             flex-direction: column;
             align-items: center;
         }
+        span:not(#text){
+            color: rgba(144, 179, 176, 0.911);
+
+            font-weight: 700;
+        }
 
         .bebi p,
         .carboi p,
         #ad p,
         .sobre p {
             width: 150px;
-        }
-        #nameB,#nameC,#nameA,#nameS{
-            width: 350px;
         }
 
         .plus,
@@ -87,27 +96,28 @@
 
         }
 
-        @media (max-width: 460px) {
+        @media (max-width: 670px) {
+            h1 {
+                width: 300px;
+            }
+
+            .validacao {
+                width: 140px;
+                height: 35px !important;
+            }
+
+            p[id ^='valor'] {
+                width: 60px;
+            }
+        }
+
+        @media (max-height: 915px) {
 
             .bebida-img,
             .carbo-img,
             .fruta-img,
             .ad-img {
                 width: 50px;
-            }
-        }
-
-        @media (max-height: 800px) {
-
-            .bebida-img,
-            .carbo-img,
-            .fruta-img,
-            .ad-img {
-                width: 40px;
-            }
-
-            .validacao {
-                height: 30px;
             }
 
             h1 {
@@ -194,7 +204,7 @@
 
                         <div class="validacao">
                             <button class="minus" onclick="minusB()" type="button">-</button>
-                            <p id="valorB">0</p>
+                            <p id="valorB">0 <span> / 1</span></p>
                             <button class="plus" onclick="plusB()" type="button">+</button>
                         </div>
                     </div>
@@ -207,20 +217,20 @@
 
                         <div class="validacao">
                             <button class="minus" onclick="minusC()" type="button">-</button>
-                            <p id="valorC">0</p>
+                            <p id="valorC"></p>
                             <button class="plus" onclick="plusC()" type="button">+</button>
                         </div>
                     </div>
 
                 </div>
                 <div id="double">
-                    <div class="sobre">
+                    <div class="sobre" >
                         <img class="fruta-img" src="img/fruta.png" alt="Sobremesa">
                         <p id="nameS">Sobremesa</p>
 
                         <div class="validacao">
                             <button class="minus" onclick="minusF()" type="button">-</button>
-                            <p id="valorF">0</p>
+                            <p id="valorF">0 <span> / 1</span></p>
                             <button class="plus" onclick="plusF()" type="button">+</button>
                         </div>
                     </div>
@@ -231,7 +241,7 @@
 
                         <div class="validacao">
                             <button class="minus" onclick="minusA()" type="button">-</button>
-                            <p id="valorA">0</p>
+                            <p id="valorA">0 <span> / 1</span></p>
                             <button class="plus" onclick="plusA()" type="button">+</button>
                         </div>
                     </div>
@@ -260,7 +270,7 @@
         //TEMPORIZADOR
 
         setTimeout(() => {
-            window.location.href = "index.html"
+        window.location.href = "index.html"
         }, 40000);
         //PERFIL
         nome = null
@@ -280,6 +290,9 @@
         ad = sessionStorage.getItem('adicionalA')
         if (ad != "") {
             document.getElementById('ad').style.display = 'flex'
+        }else{
+            document.getElementById('double').style.flexDirection = 'column'
+            
         }
         //NOMES
         document.getElementById('nameA').innerHTML = sessionStorage.getItem('adicionalA')
@@ -298,56 +311,58 @@
             if (valorB < 0) {
                 valorB = 1
             }
-            document.getElementById("valorB").innerHTML = valorB
+            document.getElementById("valorB").innerHTML = valorB + '<span> / 1</span>'
         }
         function plusB() {
             valorB++
             if (valorB > 1) {
                 valorB = 0;
             }
-            document.getElementById("valorB").innerHTML = valorB
+            document.getElementById("valorB").innerHTML = valorB + '<span> / 1</span>'
         }
         function minusA() {
             valorA--
             if (valorA < 0) {
                 valorA = 1
             }
-            document.getElementById("valorA").innerHTML = valorA
+            document.getElementById("valorA").innerHTML = valorA + '<span> / 1</span>'
         }
         function plusA() {
             valorA++
             if (valorA > 1) {
                 valorA = 0;
             }
-            document.getElementById("valorA").innerHTML = valorA
+            document.getElementById("valorA").innerHTML = valorA + '<span> / 1</span>'
         }
+
+        document.getElementById("valorC").innerHTML =`0 <span> / ${parseInt(sessionStorage.getItem('qntCarbo'))}</span>`
         function minusC() {
             valorC--
             if (valorC < 0) {
                 valorC = sessionStorage.getItem('qntCarbo')
             }
-            document.getElementById("valorC").innerHTML = valorC
+            document.getElementById("valorC").innerHTML = valorC + `<span> / ${parseInt(sessionStorage.getItem('qntCarbo'))}</span>`
         }
         function plusC() {
             valorC++
             if (valorC > sessionStorage.getItem('qntCarbo')) {
                 valorC = 0;
             }
-            document.getElementById("valorC").innerHTML = valorC
+            document.getElementById("valorC").innerHTML = valorC + `<span> / ${parseInt(sessionStorage.getItem('qntCarbo'))}</span>`
         }
         function minusF() {
             valorF--
             if (valorF < 0) {
                 valorF = 1
             }
-            document.getElementById("valorF").innerHTML = valorF
+            document.getElementById("valorF").innerHTML = valorF + '<span> / 1</span>'
         }
         function plusF() {
             valorF++
             if (valorF > 1) {
                 valorF = 0;
             }
-            document.getElementById("valorF").innerHTML = valorF
+            document.getElementById("valorF").innerHTML = valorF + '<span> / 1</span>'
         }
         function post() {
             document.getElementById('load').style.display = 'flex'
