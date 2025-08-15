@@ -140,6 +140,14 @@ button:hover:not(.plus, .minus, .instrutor, .diaDaSemana){
     }
 
 }
+@media (max-width: 670px) {
+    .voltar-img{
+        width: 40px;
+    }
+    .sesi-logo{
+        top: 30px;
+    }
+}
 .perfil{
 
     display: flex;
@@ -155,5 +163,6 @@ button:hover:not(.plus, .minus, .instrutor, .diaDaSemana){
 }
 .info{
     display: flex;
+
 
 }
